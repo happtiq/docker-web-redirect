@@ -29,7 +29,13 @@ cat <<EOF > /etc/nginx/conf.d/default.conf
 server {
 	listen ${LISTEN};
 
-	rewrite ^/(.*)\$ ${REDIRECT_TARGET}\$1 ${REDIRECT_TYPE};
+	location / {
+		rewrite ^/(.*)\$ ${REDIRECT_TARGET}\$1 ${REDIRECT_TYPE};
+	}
+
+	location /healthz {
+		return 200 'OK';
+	}
 }
 EOF
 
